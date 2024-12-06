@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  	<div class="jumbotron">
+    	<font color="blue"><h2><i><b>Books added by you:</b></i></h2></font>
+    </div>
+</div>
+{% if your_books %}
+<div class="container">
+  	<div class="jumbotron">
+	<ul>
+{% for book in your_books %}
+<a href = "/books/{{book.id}}">
+<h3>
+<li>{{book.name}}</li></h3>
+</a>
+{% endfor %}
+</ul>
+</div>
+</div>
+{% endif %}
+<div class="container">
+  	<div class="jumbotron">
+    	<font color="blue"><h2><i><b>Recommendations for you:</b></i></h2></font>
+    </div>
+</div>
+{% for rcdn in rcdns %}
+{% if request.user != rcdn.added_by_user %}
+<div class="col-lg-3 col-md-4 col-sm-6 " >
+<div class = "thumbnail">
+<img src="{{rcdn.image}}" style="width:500px;height:600px;" alt = "Generic placeholder thumbnail">
+<a href = "/books/{{rcdn.id}}">
+<h3>{{rcdn.name}}</h3>
+</a>
+</div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
